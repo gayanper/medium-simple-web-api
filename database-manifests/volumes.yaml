@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mariadb-volume-claim
+  labels:
+    app: mariadb-db
+  namespace: experiments
+spec:
+  resources:
+    requests:
+      storage: 1024M
+  accessModes:
+    - ReadWriteOnce

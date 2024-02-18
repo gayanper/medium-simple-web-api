@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: employees-portal-go
+  namespace: experiments
+spec:
+  selector:
+    app: employees-portal-go
+  ports:
+  - port: 8081
+    targetPort: 8080
+    
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employees-portal-go
+  namespace: experiments
+spec:
+  selector:
+    matchLabels:
+      app: employees-portal-go
+  template:
+    metadata:
+      labels:
+        app: employees-portal-go
+    spec:
+      containers:
+      - name: employees-portal-go
+        image: employee-portal-go
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "2000m"
+          requests:
+            memory: "500Mi"
+            cpu: "500m"
+        env:
+          - name: ENABLE_VT
+            value: "true"
+          - name: DB_HOST
+            value: mariadb-db.experiments.svc.cluster.local
+          - name: DB_PW
+            valueFrom:
+              secretKeyRef:
+                name: mariadb-db-secret
+                key: root-password
+        ports:
+        - containerPort: 8080

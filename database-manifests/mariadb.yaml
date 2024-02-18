@@ -1,0 +1,37 @@
+# https://mariadb.org/start-mariadb-in-k8s/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb-db
+  namespace: experiments
+spec:
+  selector:
+    matchLabels:
+      app: mariadb-db
+  template:
+    metadata:
+      labels:
+        app: mariadb-db
+    spec:
+      containers:
+      - name: mariadb-db
+        image: mariadb
+        resources:
+          limits:
+            memory: 1024Mi
+            cpu: 2000m
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MARIADB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: root-password
+                name: mariadb-db-secret
+        volumeMounts:
+          - name: mariadb-volume
+            mountPath: /var/lib/mysql
+      volumes:
+        - name: mariadb-volume
+          persistentVolumeClaim:
+            claimName: mariadb-volume-claim

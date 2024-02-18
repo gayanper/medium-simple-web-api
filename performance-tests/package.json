@@ -1,0 +1,20 @@
+{
+  "name": "performace-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run-springboot": "./dashboard/k6 run -e PORT=8082 --out web-dashboard find-api.js",
+    "run-springboot-nvt": "./dashboard/k6 run -e PORT=8083 --out web-dashboard find-api.js",
+    "run-springboot-jvm": "./dashboard/k6 run -e PORT=8084 --out web-dashboard find-api.js",
+    "run-springboot-jvm-nvt": "./dashboard/k6 run -e PORT=8085 --out web-dashboard find-api.js",
+    "run-go": "./dashboard/k6 run -e PORT=8081 --out web-dashboard find-api.js",
+    "run-local": "./dashboard/k6 run -e PORT=8080 --out web-dashboard find-api.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "k6": "0.0.0"
+  }
+}

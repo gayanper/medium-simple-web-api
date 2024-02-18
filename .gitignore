@@ -22,3 +22,19 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# vscode
+.vscode/
+*.code-workspace
+
+# MacOS
+.DS_Store
+
+# Output Directories
+dist/
+target/
+
+# nodejs
+
+node_modules/
+performance-tests/dashboard/k6
